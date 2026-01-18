@@ -21,9 +21,9 @@ This project demonstrates a microservices architecture with the following servic
 ## Technology Stack
 
 ### Backend Services
-- **Node.js Services**: Express.js, Sequelize/Mongoose, JWT authentication
+- **Node.js Services**: Express.js, Sequelize ORM, Mongoose, JWT authentication
 - **Python Service**: FastAPI, Pydantic, MongoDB
-- **Databases**: MySQL (User Service), MongoDB (Product/Order/Review Services)
+- **Databases**: MySQL with Sequelize ORM (User Service), MongoDB (Product/Order/Review Services)
 
 ### Frontend
 - **Svelte** - Modern reactive UI framework
@@ -108,17 +108,17 @@ npm run dev
 
 ### 4. Database Setup
 
-#### MySQL (User Service)
+#### MySQL (User Service with Sequelize ORM)
 ```sql
 CREATE DATABASE userdb;
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 ```
+
+The User Service uses Sequelize ORM which automatically manages the database schema. The User model is defined in `models/User.js` and includes:
+- `id` (Auto-increment primary key)
+- `username` (Unique, required)
+- `email` (Unique, required) 
+- `password` (Hashed, required)
+- `createdAt` and `updatedAt` (Auto-managed by Sequelize)
 
 #### MongoDB (Product, Order, Review Services)
 ```bash
