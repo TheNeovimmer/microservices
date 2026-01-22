@@ -32,24 +32,30 @@ This project demonstrates a microservices architecture with the following servic
 
 ## Service Endpoints
 
-### User Service (Port 4000)
-- `POST /users/register` - User registration
-- `POST /users/login` - User authentication
-- `GET /users/profile` - Get user profile
+### Gateway Service (Port 4000)
+The Gateway acts as the single entry point that routes requests to appropriate backend services:
+- `/*/users/*` → User Service (port 4001)
+- `/*/products/*` → Product Service (port 4002)
+- `/*/orders/*` → Order Service (port 4003)
 
-### Product Service (Port 4001)
+### User Service (Port 4001)
+- `POST users/register` - User registration
+- `POST users/login` - User authentication
+- `GET users/profile` - Get user profile
+
+### Product Service (Port 4002)
 - `GET /products` - Get all products
 - `POST /products` - Create new product
 - `GET /products/:id` - Get product by ID
 
-### Order Service (Port 4002)
+### Order Service (Port 4003)
 - `POST /orders` - Create new order
 - `GET /orders` - Get all orders
 - `GET /orders/:id` - Get order by ID
 
-### Review Service (Port 4003)
+### Review Service (Port 8080)
 - `POST /reviews` - Add product review
-- `GET /reviews/:product_id` - Get reviews for product
+- `GET /reviews/{product_id}` - Get reviews for product
 
 ## Prerequisites
 
@@ -68,6 +74,13 @@ cd microservices
 ```
 
 ### 2. Setup Backend Services
+
+#### Gateway Service
+```bash
+cd backend/gateway
+npm install
+npm run dev
+```
 
 #### User Service
 ```bash
@@ -123,9 +136,9 @@ The User Service uses Sequelize ORM which automatically manages the database sch
 #### MongoDB (Product, Order, Review Services)
 ```bash
 # Create databases
-use productdb
-use orderdb
-use reviewsdb
+use productdb-service
+use orderdb-service
+use reviewsdb-service
 ```
 
 ## Service Communication
@@ -139,10 +152,11 @@ The services communicate through REST APIs:
 
 ### Running All Services
 Each service runs on its own port:
-- User Service: http://localhost:4000
-- Product Service: http://localhost:4001
-- Order Service: http://localhost:4002
-- Review Service: http://localhost:4003
+- Gateway: http://localhost:4000
+- User Service: http://localhost:4001
+- Product Service: http://localhost:4002
+- Order Service: http://localhost:4003
+- Review Service: http://localhost:8080
 - Frontend: http://localhost:5173
 
 ### API Documentation

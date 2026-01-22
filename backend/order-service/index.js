@@ -17,7 +17,7 @@ const Order = mongoose.model("Order", {
 
 app.post("/orders", async (req, res) => {
     //get product price from product service 
-    const product = await axios.get(`http://localhost:4001/products`);; 
+    const product = await axios.get(`http://localhost:4002/products`);; 
 
     const selected = product.data.find((p)=> p._id===req.body.productID);
 
@@ -30,5 +30,5 @@ app.post("/orders", async (req, res) => {
     res.json({ message: "Order created" }); 
 }); 
 
-app.listen(4002, () => console.log("Order service on 4002")); 
+app.listen(4003, () => console.log("Order service on 4003")); 
 

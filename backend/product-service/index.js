@@ -25,4 +25,4 @@ app.get("/products", async (req, res) => {
   res.json(products);
 });
 
-app.listen(4001, () => console.log("Product service on 4001"));
+app.listen(4002, () => console.log("Product service on 4002"));

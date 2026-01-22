@@ -13,7 +13,7 @@ sequelize.sync().then(() => {
 });
 
 // Register
-app.post("/register", async (req, res) => {
+app.post("users/register", async (req, res) => {
   const { email, password } = req.body;
   const hashed = await bcrypt.hash(password, 10);
   try {
@@ -25,7 +25,7 @@ app.post("/register", async (req, res) => {
 });
 
 // Login
-app.post("/login", async (req, res) => {
+app.post("users/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
   if (!user)
@@ -37,6 +37,6 @@ app.post("/login", async (req, res) => {
   res.json({ token });
 });
 
-app.listen(4000, () =>
-  console.log("User service running on port 4000")
+app.listen(4001, () =>
+  console.log("User service running on port 4001")
 );
